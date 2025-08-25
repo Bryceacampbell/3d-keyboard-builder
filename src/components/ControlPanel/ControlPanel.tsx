@@ -128,18 +128,18 @@ export const ControlPanel = React.memo(
           <h4 style={{ margin: "0 0 10px 0", fontSize: "14px" }}>Cover Type</h4>
           <div style={{ display: "flex", gap: "10px" }}>
             <ToggleButton
-              isActive={state.coverType === "acrylic"}
-              onClick={() => onUpdateCoverType("acrylic")}
-              aria-label="Select acrylic cover"
-            >
-              Acrylic
-            </ToggleButton>
-            <ToggleButton
               isActive={state.coverType === "3dp"}
               onClick={() => onUpdateCoverType("3dp")}
               aria-label="Select 3D printed cover"
             >
               3D Print
+            </ToggleButton>
+            <ToggleButton
+              isActive={state.coverType === "acrylic"}
+              onClick={() => onUpdateCoverType("acrylic")}
+              aria-label="Select acrylic cover"
+            >
+              Acrylic
             </ToggleButton>
           </div>
         </div>
