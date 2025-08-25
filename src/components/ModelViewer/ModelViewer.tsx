@@ -9,7 +9,7 @@ export const ModelViewer = React.memo(({ state }: ModelViewerProps) => {
   return (
     <Canvas
       camera={{ position: [0, 0, 5], fov: 5 }}
-      style={{ backgroundColor: "#1a1a1a", cursor: "grab" }}
+      style={{ background: "rgba(0, 4, 18, 0.95)", cursor: "grab" }}
     >
       <ambientLight intensity={0.5} />
       <directionalLight position={[10, 10, 5]} intensity={1} />

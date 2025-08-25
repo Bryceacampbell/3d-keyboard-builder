@@ -123,7 +123,7 @@ export const CONTROL_PANEL_STYLES = {
   position: "absolute" as const,
   top: "20px",
   left: "20px",
-  background: "rgba(0, 4, 18, 0.8)",
+  background: "rgba(0, 4, 18, 0.95)",
   padding: "20px",
   borderRadius: "8px",
   color: "#e8efff",
