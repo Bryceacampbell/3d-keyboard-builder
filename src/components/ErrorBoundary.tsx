@@ -139,7 +139,7 @@ export class ModelErrorBoundary extends Component<
               marginTop: "8px",
               padding: "4px 8px",
               background: "#ff8c00",
-              color: "white",
+              color: "#e8efff",
               border: "none",
               borderRadius: "2px",
               fontSize: "10px",

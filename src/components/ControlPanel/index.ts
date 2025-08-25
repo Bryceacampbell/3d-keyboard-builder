@@ -1,2 +1,1 @@
 export { ControlPanel } from "./ControlPanel";
-export { ModelViewer } from "./ModelViewer";

@@ -2,7 +2,7 @@ import React, { useMemo, useRef, Suspense } from "react";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import type { ModelProps, HexColor } from "@/types";
-import { ModelErrorBoundary } from "./ErrorBoundary";
+import { ModelErrorBoundary } from "../ErrorBoundary";
 
 const materialCache = new Map<string, THREE.MeshStandardMaterial>();
 
@@ -15,8 +15,8 @@ const getMaterial = (color: HexColor): THREE.MeshStandardMaterial => {
   return material;
 };
 
-const ModelInner: React.FC<ModelProps> = React.memo(
-  ({ path, position, mirrored = false, color }) => {
+const ModelInner = React.memo(
+  ({ path, position, mirrored = false, color }: ModelProps) => {
     const { scene } = useGLTF(path);
     const groupRef = useRef<THREE.Group>(null);
 
@@ -50,7 +50,7 @@ const ModelInner: React.FC<ModelProps> = React.memo(
 
 ModelInner.displayName = "ModelInner";
 
-export const Model: React.FC<ModelProps> = React.memo((props) => {
+export const Model = React.memo((props: ModelProps) => {
   return (
     <ModelErrorBoundary modelPath={props.path}>
       <Suspense fallback={null}>

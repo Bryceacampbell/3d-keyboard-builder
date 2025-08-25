@@ -33,6 +33,10 @@ export interface ViewerState {
   switchType: SwitchType;
 }
 
+export interface ModelViewerProps {
+  state: ViewerState;
+}
+
 export interface ModelProps {
   path: ModelPath;
   position: readonly [number, number, number];
@@ -48,6 +52,15 @@ export interface KeyboardRendererProps {
   switchType: SwitchType;
 }
 
+export interface KeyboardPartProps {
+  partName: keyof KeyboardParts;
+  keyboardType: KeyboardType;
+  switchType: SwitchType;
+  coverType: CoverType;
+  isEnabled: boolean;
+  color?: HexColor | undefined;
+}
+
 export interface ControlPanelProps {
   state: ViewerState;
   onUpdateParts: (parts: Partial<KeyboardParts>) => void;
@@ -57,6 +70,17 @@ export interface ControlPanelProps {
   onUpdateSwitchType: (switchType: SwitchType) => void;
 }
 
+export interface ToggleButtonProps extends React.ComponentProps<"button"> {
+  isActive: boolean;
+}
+
+export interface ColorInputProps
+  extends Omit<React.ComponentProps<"input">, "value" | "onChange"> {
+  label: string;
+  value: HexColor;
+  onChange: (color: HexColor) => void;
+}
+
 export interface PartConfig {
   name: keyof KeyboardParts;
   requiresMirroring: boolean;
@@ -64,71 +88,8 @@ export interface PartConfig {
   dependsOnCoverType?: boolean;
 }
 
-export const MODEL_CONFIGS: Record<keyof KeyboardParts, PartConfig> = {
-  battery: {
-    name: "battery",
-    requiresMirroring: true,
-    supportsColorCustomization: false,
-  },
-  caseBottom: {
-    name: "caseBottom",
-    requiresMirroring: true,
-    supportsColorCustomization: true,
-  },
-  caseTop: {
-    name: "caseTop",
-    requiresMirroring: true,
-    supportsColorCustomization: false,
-  },
-  caseCover: {
-    name: "caseCover",
-    requiresMirroring: true,
-    supportsColorCustomization: true,
-    dependsOnCoverType: true,
-  },
-  coverHardware: {
-    name: "coverHardware",
-    requiresMirroring: true,
-    supportsColorCustomization: false,
-  },
-  headers: {
-    name: "headers",
-    requiresMirroring: true,
-    supportsColorCustomization: false,
-  },
-  keycaps: {
-    name: "keycaps",
-    requiresMirroring: false,
-    supportsColorCustomization: true,
-  },
-  pcb: {
-    name: "pcb",
-    requiresMirroring: false,
-    supportsColorCustomization: false,
-  },
-  nano: {
-    name: "nano",
-    requiresMirroring: true,
-    supportsColorCustomization: false,
-  },
-  switches: {
-    name: "switches",
-    requiresMirroring: false,
-    supportsColorCustomization: false,
-  },
-  view: {
-    name: "view",
-    requiresMirroring: false,
-    supportsColorCustomization: false,
-  },
-} as const;
-
 export interface ModelLoadError {
   path: ModelPath;
   message: string;
   timestamp: number;
 }
-
-export type PartToggleHandler = (part: keyof KeyboardParts) => void;
-export type ColorChangeHandler = (color: HexColor) => void;
-export type SelectionChangeHandler<T> = (value: T) => void;

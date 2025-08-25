@@ -15,7 +15,7 @@ export const useKeyboardState = () => {
     parts: DEFAULT_PARTS,
     colors: DEFAULT_COLORS,
     selectedKeyboard: "corne",
-    coverType: "acrylic",
+    coverType: "3dp",
     switchType: "mx",
   });
 

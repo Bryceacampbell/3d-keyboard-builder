@@ -22,9 +22,9 @@ export const DEFAULT_PARTS: KeyboardParts = {
 } as const;
 
 export const DEFAULT_COLORS: KeyboardColors = {
-  caseBottom: "#2d3748" as HexColor,
-  keycaps: "#f7fafc" as HexColor,
-  caseCover: "#4299e1" as HexColor,
+  caseBottom: "#ff4da6" as HexColor,
+  keycaps: "#e8efff" as HexColor,
+  caseCover: "#ff4da6" as HexColor,
 } as const;
 
 export const MODEL_FILES = {
@@ -119,25 +119,14 @@ export const PART_METADATA = {
   },
 } as const;
 
-export const CAMERA_CONFIG = {
-  position: [0, 0, 5] as const,
-  fov: 5,
-} as const;
-
-export const LIGHTING_CONFIG = {
-  ambient: { intensity: 0.5 },
-  directional: { position: [10, 10, 5] as const, intensity: 1 },
-  point: { position: [-10, -10, -10] as const, intensity: 1 },
-} as const;
-
 export const CONTROL_PANEL_STYLES = {
   position: "absolute" as const,
   top: "20px",
   left: "20px",
-  background: "rgba(0, 0, 0, 0.8)",
+  background: "rgba(0, 4, 18, 0.8)",
   padding: "20px",
   borderRadius: "8px",
-  color: "white",
+  color: "#e8efff",
   fontFamily: "Arial, sans-serif",
   fontSize: "14px",
   maxWidth: "300px",
@@ -152,31 +141,18 @@ export const BUTTON_STYLES = {
     padding: "8px 12px",
     border: "none",
     borderRadius: "4px",
-    color: "white",
+    color: "#e8efff",
     cursor: "pointer",
     fontSize: "11px",
+    fontWeight: 700,
+    textTransform: "uppercase",
   },
   active: {
-    background: "#4a90e2",
+    background: "#ff4da6",
+    border: "1px solid #ff4da6",
   },
   inactive: {
-    background: "#333",
+    border: "1px solid #ff4da6",
+    background: "none",
   },
-} as const;
-
-export const TRANSITIONS = {
-  modelSwitch: 0, // milliseconds
-  colorChange: 0,
-  partToggle: 0,
-} as const;
-
-export const PERFORMANCE_CONFIG = {
-  modelPreloadBatchSize: 3,
-  materialCacheSize: 50,
-  renderDistance: 100,
-} as const;
-
-export const VALIDATION = {
-  hexColor: /^#[0-9A-Fa-f]{6}$/,
-  modelPath: /^\/[\w-]+\/[\w-]+\/[\w-]+\.glb$/,
 } as const;
