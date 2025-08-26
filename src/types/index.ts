@@ -31,6 +31,7 @@ export interface ViewerState {
   selectedKeyboard: KeyboardType;
   coverType: CoverType;
   switchType: SwitchType;
+  isExplodedView: boolean;
 }
 
 export interface ModelViewerProps {
@@ -50,6 +51,7 @@ export interface KeyboardRendererProps {
   colors: KeyboardColors;
   coverType: CoverType;
   switchType: SwitchType;
+  isExplodedView: boolean;
 }
 
 export interface KeyboardPartProps {
@@ -59,6 +61,7 @@ export interface KeyboardPartProps {
   coverType: CoverType;
   isEnabled: boolean;
   color?: HexColor | undefined;
+  isExplodedView: boolean;
 }
 
 export interface ControlPanelProps {
@@ -68,6 +71,7 @@ export interface ControlPanelProps {
   onUpdateKeyboard: (keyboard: KeyboardType) => void;
   onUpdateCoverType: (coverType: CoverType) => void;
   onUpdateSwitchType: (switchType: SwitchType) => void;
+  onToggleExplodedView: () => void;
 }
 
 export interface ToggleButtonProps extends React.ComponentProps<"button"> {

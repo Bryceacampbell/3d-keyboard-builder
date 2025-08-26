@@ -12,6 +12,7 @@ export const ControlPanel = React.memo(
     onUpdateKeyboard,
     onUpdateCoverType,
     onUpdateSwitchType,
+    onToggleExplodedView,
   }: ControlPanelProps) => {
     const handlePartToggle = useCallback(
       (partName: keyof KeyboardParts) => {
@@ -142,6 +143,24 @@ export const ControlPanel = React.memo(
               Acrylic
             </ToggleButton>
           </div>
+        </div>
+
+        <div
+          style={{
+            marginBottom: "20px",
+            paddingBottom: "15px",
+            borderBottom: "1px solid #444",
+          }}
+        >
+          <h4 style={{ margin: "0 0 10px 0", fontSize: "14px" }}>View</h4>
+          <ToggleButton
+            isActive={state.isExplodedView}
+            onClick={onToggleExplodedView}
+            aria-label="Toggle exploded view"
+            style={{ width: "100%" }}
+          >
+            {state.isExplodedView ? "Assembled View" : "Exploded View"}
+          </ToggleButton>
         </div>
 
         <h4 style={{ margin: "0 0 10px 0", fontSize: "14px" }}>Parts</h4>

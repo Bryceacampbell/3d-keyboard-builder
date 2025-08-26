@@ -1,6 +1,6 @@
 import React from "react";
 import type { KeyboardPartProps } from "@/types";
-import { MODEL_FILES, buildModelPath, PART_METADATA } from "@/constants";
+import { MODEL_FILES, buildModelPath, PART_METADATA, EXPLODED_POSITIONS } from "@/constants";
 import { Model } from "./Model";
 
 export const KeyboardPart = React.memo(
@@ -11,6 +11,7 @@ export const KeyboardPart = React.memo(
     coverType,
     isEnabled,
     color,
+    isExplodedView,
   }: KeyboardPartProps) => {
     const metadata = PART_METADATA[partName];
 
@@ -52,7 +53,7 @@ export const KeyboardPart = React.memo(
       switchType,
       getModelFileName()
     );
-    const position = [0, 0, 0] as const;
+    const position = isExplodedView ? EXPLODED_POSITIONS[partName] : ([0, 0, 0] as const);
 
     return (
       <>

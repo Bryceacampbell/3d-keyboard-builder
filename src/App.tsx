@@ -19,6 +19,7 @@ const App = () => {
         onUpdateKeyboard={actions.setSelectedKeyboard}
         onUpdateCoverType={actions.setCoverType}
         onUpdateSwitchType={actions.setSwitchType}
+        onToggleExplodedView={actions.toggleExplodedView}
       />
     </div>
   );

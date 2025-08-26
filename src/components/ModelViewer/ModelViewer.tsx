@@ -21,6 +21,7 @@ export const ModelViewer = React.memo(({ state }: ModelViewerProps) => {
           colors={state.colors}
           coverType={state.coverType}
           switchType={state.switchType}
+          isExplodedView={state.isExplodedView}
         />
       </ErrorBoundary>
       <OrbitControls

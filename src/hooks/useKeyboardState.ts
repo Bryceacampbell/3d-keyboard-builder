@@ -17,6 +17,7 @@ export const useKeyboardState = () => {
     selectedKeyboard: "corne",
     coverType: "3dp",
     switchType: "mx",
+    isExplodedView: false,
   });
 
   const togglePart = useCallback((partName: keyof KeyboardParts) => {
@@ -83,6 +84,13 @@ export const useKeyboardState = () => {
     }));
   }, []);
 
+  const toggleExplodedView = useCallback(() => {
+    setState((prevState) => ({
+      ...prevState,
+      isExplodedView: !prevState.isExplodedView,
+    }));
+  }, []);
+
   const resetToDefaults = useCallback(() => {
     setState({
       parts: DEFAULT_PARTS,
@@ -90,6 +98,7 @@ export const useKeyboardState = () => {
       selectedKeyboard: "corne",
       coverType: "acrylic",
       switchType: "mx",
+      isExplodedView: false,
     });
   }, []);
 
@@ -116,6 +125,7 @@ export const useKeyboardState = () => {
       setSelectedKeyboard,
       setCoverType,
       setSwitchType,
+      toggleExplodedView,
       resetToDefaults,
     },
   } as const;

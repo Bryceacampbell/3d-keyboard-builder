@@ -8,17 +8,17 @@ import type {
 } from "@/types";
 
 export const DEFAULT_PARTS: KeyboardParts = {
-  battery: true,
   caseBottom: true,
-  caseTop: true,
-  caseCover: true,
-  coverHardware: true,
-  headers: true,
-  keycaps: true,
   pcb: true,
+  headers: true,
+  battery: true,
   nano: true,
-  switches: true,
   view: true,
+  caseTop: true,
+  switches: true,
+  coverHardware: true,
+  caseCover: true,
+  keycaps: true,
 } as const;
 
 export const DEFAULT_COLORS: KeyboardColors = {
@@ -49,24 +49,77 @@ export const buildModelPath = (
 ): ModelPath =>
   `/3d-keyboard-builder/${keyboard}/${switchType}/${fileName}` as ModelPath;
 
+export const EXPLODED_POSITIONS: Record<
+  keyof KeyboardParts,
+  readonly [number, number, number]
+> = {
+  caseBottom: [0, 0, -0.55],
+  pcb: [0, 0, -0.4],
+  headers: [0, 0, -0.25],
+  battery: [0, 0, -0.1],
+  nano: [0, 0, 0.05],
+  view: [0, 0, 0],
+  caseTop: [0, 0, 0.2],
+  switches: [0, 0, 0.35],
+  coverHardware: [0, 0, 0.5],
+  caseCover: [0, 0, 0.65],
+  keycaps: [0, 0, 0.8],
+} as const;
+
 export const PART_METADATA = {
-  battery: {
-    displayName: "Battery",
-    requiresMirroring: true,
-    supportsColor: false,
-    description: "Battery pack for wireless operation",
-  },
   caseBottom: {
     displayName: "Case Bottom",
     requiresMirroring: true,
     supportsColor: true,
     description: "Bottom case housing",
   },
+  pcb: {
+    displayName: "PCB",
+    requiresMirroring: false,
+    supportsColor: false,
+    description: "Printed circuit board",
+  },
+  headers: {
+    displayName: "Headers",
+    requiresMirroring: true,
+    supportsColor: false,
+    description: "Pin headers for connections",
+  },
+  battery: {
+    displayName: "Battery",
+    requiresMirroring: true,
+    supportsColor: false,
+    description: "Battery pack for wireless operation",
+  },
+  nano: {
+    displayName: "Nano",
+    requiresMirroring: true,
+    supportsColor: false,
+    description: "Microcontroller board",
+  },
+  view: {
+    displayName: "View",
+    requiresMirroring: false,
+    supportsColor: false,
+    description: "Complete assembly view",
+  },
   caseTop: {
     displayName: "Case Top",
     requiresMirroring: true,
     supportsColor: false,
     description: "Top case housing",
+  },
+  switches: {
+    displayName: "Switches",
+    requiresMirroring: false,
+    supportsColor: false,
+    description: "Mechanical switches",
+  },
+  coverHardware: {
+    displayName: "Cover Hardware",
+    requiresMirroring: true,
+    supportsColor: false,
+    description: "Hardware for cover attachment",
   },
   caseCover: {
     displayName: "Case Cover",
@@ -75,47 +128,11 @@ export const PART_METADATA = {
     dependsOn: "coverType" as const,
     description: "Protective cover (acrylic or 3D printed)",
   },
-  coverHardware: {
-    displayName: "Cover Hardware",
-    requiresMirroring: true,
-    supportsColor: false,
-    description: "Hardware for cover attachment",
-  },
-  headers: {
-    displayName: "Headers",
-    requiresMirroring: true,
-    supportsColor: false,
-    description: "Pin headers for connections",
-  },
   keycaps: {
     displayName: "Keycaps",
     requiresMirroring: false,
     supportsColor: true,
     description: "Key caps for switches",
-  },
-  pcb: {
-    displayName: "PCB",
-    requiresMirroring: false,
-    supportsColor: false,
-    description: "Printed circuit board",
-  },
-  nano: {
-    displayName: "Nano",
-    requiresMirroring: true,
-    supportsColor: false,
-    description: "Microcontroller board",
-  },
-  switches: {
-    displayName: "Switches",
-    requiresMirroring: false,
-    supportsColor: false,
-    description: "Mechanical switches",
-  },
-  view: {
-    displayName: "View",
-    requiresMirroring: false,
-    supportsColor: false,
-    description: "Complete assembly view",
   },
 } as const;
 
