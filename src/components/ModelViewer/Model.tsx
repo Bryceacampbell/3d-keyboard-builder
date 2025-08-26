@@ -1,5 +1,6 @@
 import React, { useMemo, useRef, Suspense } from "react";
 import { useGLTF } from "@react-three/drei";
+import { useSpring, animated } from "@react-spring/three";
 import * as THREE from "three";
 import type { ModelProps, HexColor } from "@/types";
 import { ModelErrorBoundary } from "../ErrorBoundary";
@@ -16,7 +17,7 @@ const getMaterial = (color: HexColor): THREE.MeshStandardMaterial => {
 };
 
 const ModelInner = React.memo(
-  ({ path, position, mirrored = false, color }: ModelProps) => {
+  ({ path, position, targetPosition, mirrored = false, color, animationConfig }: ModelProps) => {
     const { scene } = useGLTF(path);
     const groupRef = useRef<THREE.Group>(null);
 
@@ -40,10 +41,19 @@ const ModelInner = React.memo(
       [mirrored]
     );
 
+    // Use animated position if targetPosition and animationConfig are provided
+    const animatedPosition = useSpring({
+      position: targetPosition || position,
+      config: animationConfig ? {
+        tension: animationConfig.tension,
+        friction: animationConfig.friction,
+      } : { tension: 170, friction: 26 },
+    });
+
     return (
-      <group ref={groupRef} position={position}>
+      <animated.group ref={groupRef} position={animatedPosition.position}>
         <primitive object={processedScene} scale={scale} />
-      </group>
+      </animated.group>
     );
   }
 );

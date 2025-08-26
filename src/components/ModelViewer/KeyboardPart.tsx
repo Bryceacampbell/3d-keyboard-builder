@@ -12,6 +12,8 @@ export const KeyboardPart = React.memo(
     isEnabled,
     color,
     isExplodedView,
+    animationState: _animationState,
+    animationConfig,
   }: KeyboardPartProps) => {
     const metadata = PART_METADATA[partName];
 
@@ -53,13 +55,34 @@ export const KeyboardPart = React.memo(
       switchType,
       getModelFileName()
     );
-    const position = isExplodedView ? EXPLODED_POSITIONS[partName] : ([0, 0, 0] as const);
+
+    const normalPosition = [0, 0, 0] as const;
+    const explodedPosition = EXPLODED_POSITIONS[partName];
+    
+    // Current position (starting point)
+    const currentPosition = normalPosition;
+    
+    // Target position based on exploded view state
+    const targetPosition = isExplodedView ? explodedPosition : normalPosition;
 
     return (
       <>
-        <Model path={modelPath} position={position} color={color} />
+        <Model 
+          path={modelPath} 
+          position={currentPosition}
+          targetPosition={targetPosition}
+          color={color}
+          animationConfig={animationConfig}
+        />
         {metadata.requiresMirroring && (
-          <Model path={modelPath} position={position} color={color} mirrored />
+          <Model 
+            path={modelPath} 
+            position={currentPosition}
+            targetPosition={targetPosition}
+            color={color} 
+            mirrored
+            animationConfig={animationConfig}
+          />
         )}
       </>
     );

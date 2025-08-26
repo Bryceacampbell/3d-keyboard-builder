@@ -2,7 +2,7 @@ import { ControlPanel, ModelViewer } from "@/components";
 import { useKeyboardState } from "@/hooks/useKeyboardState";
 
 const App = () => {
-  const { state, actions } = useKeyboardState();
+  const { state, animationConfig, actions } = useKeyboardState();
   return (
     <div
       style={{
@@ -11,7 +11,7 @@ const App = () => {
         position: "relative",
       }}
     >
-      <ModelViewer state={state} />
+      <ModelViewer state={state} animationConfig={animationConfig} />
       <ControlPanel
         state={state}
         onUpdateParts={actions.updateParts}

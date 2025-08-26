@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useRef } from "react";
 import type {
   ViewerState,
   KeyboardParts,
@@ -7,8 +7,9 @@ import type {
   CoverType,
   SwitchType,
   HexColor,
+  AnimationConfig,
 } from "@/types";
-import { DEFAULT_PARTS, DEFAULT_COLORS } from "@/constants";
+import { DEFAULT_PARTS, DEFAULT_COLORS, DEFAULT_ANIMATION_STATE, DEFAULT_ANIMATION_CONFIG } from "@/constants";
 
 export const useKeyboardState = () => {
   const [state, setState] = useState<ViewerState>({
@@ -18,7 +19,11 @@ export const useKeyboardState = () => {
     coverType: "3dp",
     switchType: "mx",
     isExplodedView: false,
+    animationState: DEFAULT_ANIMATION_STATE,
   });
+  
+  const [animationConfig] = useState<AnimationConfig>(DEFAULT_ANIMATION_CONFIG);
+  const animationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const togglePart = useCallback((partName: keyof KeyboardParts) => {
     setState((prevState) => ({
@@ -85,13 +90,50 @@ export const useKeyboardState = () => {
   }, []);
 
   const toggleExplodedView = useCallback(() => {
-    setState((prevState) => ({
-      ...prevState,
-      isExplodedView: !prevState.isExplodedView,
-    }));
-  }, []);
+    setState((prevState) => {
+      // Don't allow toggle if animation is in progress
+      if (prevState.animationState.isAnimating) {
+        return prevState;
+      }
+
+      // Clear any existing timeout
+      if (animationTimeoutRef.current) {
+        clearTimeout(animationTimeoutRef.current);
+      }
+
+      const newExplodedState = !prevState.isExplodedView;
+      
+      // Start animation immediately - all parts animate together but smoothly
+      const newState = {
+        ...prevState,
+        isExplodedView: newExplodedState,
+        animationState: {
+          isAnimating: true,
+          animationProgress: 0,
+        },
+      };
+
+      // Set timeout to mark animation as complete - use just the base duration
+      animationTimeoutRef.current = setTimeout(() => {
+        setState((currentState) => ({
+          ...currentState,
+          animationState: {
+            isAnimating: false,
+            animationProgress: 1,
+          },
+        }));
+      }, animationConfig.duration);
+
+      return newState;
+    });
+  }, [animationConfig.duration]);
 
   const resetToDefaults = useCallback(() => {
+    // Clear any existing timeout
+    if (animationTimeoutRef.current) {
+      clearTimeout(animationTimeoutRef.current);
+    }
+    
     setState({
       parts: DEFAULT_PARTS,
       colors: DEFAULT_COLORS,
@@ -99,6 +141,7 @@ export const useKeyboardState = () => {
       coverType: "acrylic",
       switchType: "mx",
       isExplodedView: false,
+      animationState: DEFAULT_ANIMATION_STATE,
     });
   }, []);
 
@@ -117,6 +160,7 @@ export const useKeyboardState = () => {
   return {
     state,
     derivedState,
+    animationConfig,
     actions: {
       togglePart,
       updateParts,

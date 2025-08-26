@@ -25,6 +25,18 @@ export interface KeyboardColors {
   caseCover: HexColor;
 }
 
+export interface AnimationConfig {
+  duration: number;
+  tension: number;
+  friction: number;
+  staggerDelay: number;
+}
+
+export interface AnimationState {
+  isAnimating: boolean;
+  animationProgress: number;
+}
+
 export interface ViewerState {
   parts: KeyboardParts;
   colors: KeyboardColors;
@@ -32,17 +44,21 @@ export interface ViewerState {
   coverType: CoverType;
   switchType: SwitchType;
   isExplodedView: boolean;
+  animationState: AnimationState;
 }
 
 export interface ModelViewerProps {
   state: ViewerState;
+  animationConfig: AnimationConfig;
 }
 
 export interface ModelProps {
   path: ModelPath;
   position: readonly [number, number, number];
+  targetPosition?: readonly [number, number, number];
   mirrored?: boolean;
   color?: HexColor | undefined;
+  animationConfig?: AnimationConfig;
 }
 
 export interface KeyboardRendererProps {
@@ -52,6 +68,8 @@ export interface KeyboardRendererProps {
   coverType: CoverType;
   switchType: SwitchType;
   isExplodedView: boolean;
+  animationState: AnimationState;
+  animationConfig: AnimationConfig;
 }
 
 export interface KeyboardPartProps {
@@ -62,6 +80,8 @@ export interface KeyboardPartProps {
   isEnabled: boolean;
   color?: HexColor | undefined;
   isExplodedView: boolean;
+  animationState: AnimationState;
+  animationConfig: AnimationConfig;
 }
 
 export interface ControlPanelProps {

@@ -5,7 +5,7 @@ import type { ModelViewerProps } from "@/types";
 import { KeyboardRenderer } from "./KeyboardRenderer";
 import { ErrorBoundary } from "../ErrorBoundary";
 
-export const ModelViewer = React.memo(({ state }: ModelViewerProps) => {
+export const ModelViewer = React.memo(({ state, animationConfig }: ModelViewerProps) => {
   return (
     <Canvas
       camera={{ position: [0, 0, 5], fov: 5 }}
@@ -22,6 +22,8 @@ export const ModelViewer = React.memo(({ state }: ModelViewerProps) => {
           coverType={state.coverType}
           switchType={state.switchType}
           isExplodedView={state.isExplodedView}
+          animationState={state.animationState}
+          animationConfig={animationConfig}
         />
       </ErrorBoundary>
       <OrbitControls

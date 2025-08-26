@@ -11,6 +11,8 @@ export const KeyboardRenderer = React.memo(
     coverType,
     switchType,
     isExplodedView,
+    animationState,
+    animationConfig,
   }: KeyboardRendererProps) => {
     const getPartColor = (
       partName: keyof typeof PART_METADATA
@@ -41,6 +43,8 @@ export const KeyboardRenderer = React.memo(
             isEnabled={parts[partName]}
             color={getPartColor(partName)}
             isExplodedView={isExplodedView}
+            animationState={animationState}
+            animationConfig={animationConfig}
           />
         ))}
       </>

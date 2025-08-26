@@ -5,6 +5,8 @@ import type {
   SwitchType,
   HexColor,
   ModelPath,
+  AnimationConfig,
+  AnimationState,
 } from "@/types";
 
 export const DEFAULT_PARTS: KeyboardParts = {
@@ -16,9 +18,9 @@ export const DEFAULT_PARTS: KeyboardParts = {
   view: true,
   caseTop: true,
   switches: true,
+  keycaps: true,
   coverHardware: true,
   caseCover: true,
-  keycaps: true,
 } as const;
 
 export const DEFAULT_COLORS: KeyboardColors = {
@@ -53,18 +55,44 @@ export const EXPLODED_POSITIONS: Record<
   keyof KeyboardParts,
   readonly [number, number, number]
 > = {
-  caseBottom: [0, 0, -0.55],
-  pcb: [0, 0, -0.4],
-  headers: [0, 0, -0.25],
-  battery: [0, 0, -0.1],
-  nano: [0, 0, 0.05],
+  caseBottom: [0, 0, -0.9],
+  pcb: [0, 0, -0.65],
+  headers: [0, 0, -0.45],
+  battery: [0, 0, -0.25],
+  nano: [0, 0, -0.1],
   view: [0, 0, 0],
-  caseTop: [0, 0, 0.2],
-  switches: [0, 0, 0.35],
-  coverHardware: [0, 0, 0.5],
-  caseCover: [0, 0, 0.65],
-  keycaps: [0, 0, 0.8],
+  caseTop: [0, 0, 0.1],
+  switches: [0, 0, 0.25],
+  keycaps: [0, 0, 0.45],
+  coverHardware: [0, 0, 0.65],
+  caseCover: [0, 0, 0.9],
 } as const;
+
+export const DEFAULT_ANIMATION_CONFIG: AnimationConfig = {
+  duration: 1200,
+  tension: 120,
+  friction: 40,
+  staggerDelay: 80,
+} as const;
+
+export const DEFAULT_ANIMATION_STATE: AnimationState = {
+  isAnimating: false,
+  animationProgress: 0,
+} as const;
+
+export const PART_ANIMATION_ORDER: Array<keyof KeyboardParts> = [
+  "caseBottom",
+  "pcb",
+  "headers",
+  "battery",
+  "nano",
+  "view",
+  "caseTop",
+  "switches",
+  "keycaps",
+  "coverHardware",
+  "caseCover",
+] as const;
 
 export const PART_METADATA = {
   caseBottom: {
@@ -115,6 +143,12 @@ export const PART_METADATA = {
     supportsColor: false,
     description: "Mechanical switches",
   },
+  keycaps: {
+    displayName: "Keycaps",
+    requiresMirroring: false,
+    supportsColor: true,
+    description: "Key caps for switches",
+  },
   coverHardware: {
     displayName: "Cover Hardware",
     requiresMirroring: true,
@@ -127,12 +161,6 @@ export const PART_METADATA = {
     supportsColor: true,
     dependsOn: "coverType" as const,
     description: "Protective cover (acrylic or 3D printed)",
-  },
-  keycaps: {
-    displayName: "Keycaps",
-    requiresMirroring: false,
-    supportsColor: true,
-    description: "Key caps for switches",
   },
 } as const;
 
